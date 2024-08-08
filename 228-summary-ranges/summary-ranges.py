@@ -8,20 +8,21 @@ class Solution:
         # if reach the end of the list, add to the list the start and the end value
         if not nums:
             return []
+        
         start = nums[0]
 
         for i in range(1, len(nums)):
-            if nums[i] != nums[i - 1] + 1:
-                if nums[i - 1] == start:
+            if nums[i - 1] + 1 != nums[i]:
+                if start == nums[i - 1]:
                     sr.append(f"{start}")
-                elif nums[i - 1] != start:
+                else:
                     sr.append(f"{start}->{nums[i - 1]}")
-
-                start = nums[i] 
+                
+                start = nums[i]
         
         if start == nums[-1]:
             sr.append(f"{start}")
-        elif start != nums[-1]:
+        else:
             sr.append(f"{start}->{nums[-1]}")
 
         return sr
