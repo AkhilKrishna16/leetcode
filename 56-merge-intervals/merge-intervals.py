@@ -4,7 +4,7 @@ class Solution:
         merged_intervals = []
 
         for interval in intervals:
-            if not merged_intervals or merged_intervals[-1][1] < interval[0]:
+            if not merged_intervals or interval[0] > merged_intervals[-1][1]:
                 merged_intervals.append(interval)
             elif merged_intervals[-1][1] >= interval[0]:
                 merged_intervals[-1][1] = max(merged_intervals[-1][1], interval[1])
