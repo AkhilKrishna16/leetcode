@@ -23,11 +23,11 @@ class Solution:
             for c in word:
                 if c in copy and copy[c] >= 1:
                     copy[c] -= 1
+                
             for value in copy.values():
                 if value > 0:
                     check = False
                     break
-
             
             
             if check and shortest_word is None or check and len(word) < len(shortest_word) :
