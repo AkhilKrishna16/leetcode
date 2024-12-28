@@ -3,8 +3,7 @@ class Solution:
         count = 0
 
         while x != 0 or y != 0:
-            if (x & 1) ^ (y & 1) == 1:
-                count += 1
+            count += (x & 1) ^ (y & 1)
             x = x >> 1
             y = y >> 1
         
