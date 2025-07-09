@@ -19,6 +19,9 @@ class Solution {
                 while(end - start + 1 - maxFreq > k) {
                     index = s.charAt(start) - 'A';
                     counter[index]--;
+                    for(int i = 0; i < 26; i++) {
+                        maxFreq = Math.max(maxFreq, counter[i]);
+                    }
                     start++;
                 }
             } else {
