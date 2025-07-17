@@ -4,7 +4,8 @@ class Solution:
         p2 = 0
         ret = []
 
-        nums1, nums2 = sorted(nums1), sorted(nums2)
+        nums1 = sorted(nums1)
+        nums2 = sorted(nums2)
 
         while p1 < len(nums1) and p2 < len(nums2):
             if nums1[p1] < nums2[p2]:
