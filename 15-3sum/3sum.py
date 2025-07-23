@@ -1,33 +1,27 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        # sort the array
-        # have a start, middle, and end
-        # we iterate middle onwards through the list
-        # we have start and end, whenever the target is less than sum, move the right pointer down
-        # and vice versa, 
         nums = sorted(nums)
+
+        i = 0
         ret = []
-        
         for i in range(len(nums) - 2):
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
-            left = i + 1
-            right = len(nums) - 1
-            while left < right:
-                if nums[right] + nums[left] + nums[i] == 0:
-                    ret.append([nums[right], nums[left], nums[i]])
+            end = len(nums) - 1
+            start = i + 1
+            while start < end:
+                s = nums[i] + nums[end] + nums[start]
 
-                    # move pointers to avoid duplicates
-                    left += 1
-                    right -= 1
-                    while(left < right and nums[left] == nums[left - 1]): left += 1
-                    while(right > left and nums[right] == nums[right + 1]): right -= 1
-                elif nums[right] + nums[left] + nums[i] > 0:
-                    right -= 1
+                if s == 0:
+                    ret.append([nums[i], nums[end], nums[start]])
+                    start += 1
+                    end -= 1
+                    while start < end and nums[start] == nums[start - 1]: start += 1
+                    while start < end and nums[end] == nums[end + 1]: end -= 1
+                elif s < 0:
+                    start += 1
                 else:
-                    left += 1
-        
+                    end -= 1
+
         return ret
-
-
         
