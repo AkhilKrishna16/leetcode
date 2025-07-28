@@ -1,13 +1,20 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
-        s = set()
+        def generate_next_value(n: int) -> int:
+            copy = n
+            s = 0
+            while copy > 0:
+                s += (copy % 10) ** 2
+                copy //= 10
+            
+            return s
+        
+        slow = generate_next_value(n)
+        fast = generate_next_value(generate_next_value(n))
 
-        while(n != 1 and n not in s):
-            s.add(n)
-            squared_sum = 0
-            while(n > 0):
-                squared_sum += (n % 10) ** 2
-                n //= 10
-            n = squared_sum
-
-        return n == 1
+        while slow != fast:
+            if slow == fast:
+                break
+            slow = generate_next_value(slow)
+            fast = generate_next_value(generate_next_value(fast))
+        return slow == 1
