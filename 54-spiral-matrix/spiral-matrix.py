@@ -1,52 +1,57 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        # traverse based on directions, if right -> switch to down, etc.
-        # switch directions based on indices and where overflow is
+        # start off going to the right
+        # whenever we hit an out of bounds, switch the direction -- this affects what indices are
+        # affected (for instance, if DIR == 2 (DOWN), then we go -1)
+        # the only problem is the top going to right -- we have to stop it before it goes to 1, not zero
+        # whenever we run into a bounds OR an index pair that already exists, change the direction
+        # whenever the length of the list is == the number of elements, break
 
-        UP, DOWN, LEFT, RIGHT = 0, 1, 2, 3
-        ans = []
-        i = 0
-        j = 0
-        RIGHT_WALL = len(matrix[0]) - 1
-        LEFT_WALL = 0
-        UP_WALL = 1
-        DOWN_WALL = len(matrix) - 1
-        direction = RIGHT
+        DIR = 0
+        curr_index = 0
+        ROW, COL = 0, 0
+        indexes = []
+        ret = []
 
-        while len(ans) != len(matrix) * len(matrix[0]):
-            if direction == RIGHT:
-                while j <= RIGHT_WALL:
-                    ans.append(matrix[i][j])
-                    j += 1
+        while len(indexes) != len(matrix) * len(matrix[0]):
+            if DIR == 0:
+                indexes.append((ROW, COL))
                 
-                j -= 1
-                i += 1
-                direction = DOWN
-                RIGHT_WALL -= 1
-            elif direction == LEFT:
-                while j >= LEFT_WALL:
-                    ans.append(matrix[i][j])
-                    j -= 1
+                if COL + 1 >= len(matrix[0]) or (ROW, COL + 1) in indexes:
+                    DIR += 1
+                    DIR %= 4
+                    ROW += 1
+                else:
+                    COL += 1
+            elif DIR == 1:
+                indexes.append((ROW, COL))
                 
-                j += 1
-                i -= 1
-                direction = UP
-                LEFT_WALL += 1
-            elif direction == UP:
-                while i >= UP_WALL:
-                    ans.append(matrix[i][j])
-                    i -= 1
+                if ROW + 1 >= len(matrix) or (ROW + 1, COL) in indexes:
+                    DIR += 1
+                    DIR %= 4
+                    COL -= 1
+                else:
+                    ROW += 1
+            elif DIR == 2:
+                indexes.append((ROW, COL))
                 
-                UP_WALL += 1
-                direction = RIGHT
-                i += 1
-                j += 1
-            elif direction == DOWN:
-                while i <= DOWN_WALL:
-                    ans.append(matrix[i][j])
-                    i += 1
-                DOWN_WALL -= 1
-                direction = LEFT
-                i -= 1
-                j -= 1
-        return ans
+                if COL - 1 < 0 or (ROW, COL - 1) in indexes:
+                    DIR += 1
+                    DIR %= 4
+                    ROW -= 1
+                else:
+                    COL -= 1
+            elif DIR == 3:
+                indexes.append((ROW, COL))
+                
+                if ROW - 1 < 0 or (ROW - 1, COL) in indexes:
+                    DIR += 1
+                    DIR %= 4
+                    COL += 1
+                else:
+                    ROW -= 1
+            
+        for index in indexes:
+            ret.append(matrix[index[0]][index[1]])
+        
+        return ret
