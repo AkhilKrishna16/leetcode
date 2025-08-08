@@ -8,21 +8,21 @@ class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
         ret = []
         curr_path = []
-
+        
         def dfs(node, s):
             if not node:
-                return
+                return 
             curr_path.append(node.val)
-            # one for the left, one for the right
-            if not node.left and not node.right and targetSum == s + node.val:
+            new_s = s + node.val
+
+            if not node.left and not node.right and new_s == targetSum:
                 ret.append(curr_path.copy())
             else:
-                if node.right:
-                    dfs(node.right, s + node.val)
-                if node.left:
-                    dfs(node.left, s + node.val)
-            
+                dfs(node.right, new_s)
+                dfs(node.left, new_s)
+
             curr_path.pop()
+        
             
         dfs(root, 0)
         return ret
