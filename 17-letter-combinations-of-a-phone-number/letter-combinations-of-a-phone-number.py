@@ -1,32 +1,31 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        m = []
-
         if not digits:
             return []
-
-        keyboard = {
-            "2": "abc",
-            "3": "def",
-            "4": "ghi",
-            "5": "jkl",
-            "6": "mno",
-            "7": "pqrs",
-            "8": "tuv",
-            "9": "wxyz"
+        number_to_letters = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
         }
 
-        def traverse(index, combination): # we traverse every letter in the given digits str. 
-        # if we reach the end of the digits string, we append the current string 
-        # based on the current one, we call traverse again but we add onto the combination the current string
-        
+        res = []
 
-            if index == len(digits): # base case
-                m.append(combination)
+        def dfs(i, curr_string):
+            if len(curr_string) >= len(digits):
+                res.append(curr_string)
                 return
             
-            for keyword in keyboard[digits[index]]: # recursive call
-                traverse(index + 1, combination + keyword)
-        
-        traverse(0, "")
-        return m
+            for j in range(len(number_to_letters[digits[i]])):
+                new_string = curr_string + number_to_letters[digits[i]][j]
+                dfs(i + 1, new_string)
+
+            
+        dfs(0, "")
+        return res
+
+                
