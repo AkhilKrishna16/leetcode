@@ -1,11 +1,14 @@
 class Solution:
     def intersection(self, nums: List[List[int]]) -> List[int]:
-        if len(nums) <= 0:
-            return []
-        
-        og = set(nums[0])
+        freqs = defaultdict(int)
 
-        for i in range(1, len(nums)):
-            og = og.intersection(set(nums[i]))
+        for a in nums:
+            for num in a:
+                freqs[num] += 1
+
+        ret = []
+        for key in freqs:
+            if freqs[key] == len(nums):
+                ret.append(key)
         
-        return sorted(list(og))
+        return sorted(ret)
