@@ -1,22 +1,21 @@
 class Solution:
     def maxNumberOfBalloons(self, text: str) -> int:
-        m = {'b': 0, 'a': 0, 'l': 0, 'o': 0, 'n': 0}
+        m = defaultdict(int)
+        m['b'] = 0
+        m['a'] = 0
+        m['l'] = 0
+        m['l'] = 0
+        m['o'] = 0
+        m['o'] = 0
+        m['n'] = 0
 
         for c in text:
-            if c in ('b', 'a', 'l', 'o', 'n'):
-                if c in m:
-                    m[c] += 1
-                else:
-                    m[c] = 1
-        
+            m[c] += 1
 
-        mi = float('inf')
-
+        ret = float('inf')
         for key in m:
-            if key == 'l' or key == 'o':
-                val = m[key] // 2
-            else:
-                val = m[key]
-            
-            mi = min(mi, val)
-        return mi
+            if key in "ban":
+                ret = min(ret, m[key])
+            elif key in 'lo':
+                ret = min(ret, m[key] // 2)
+        return ret
