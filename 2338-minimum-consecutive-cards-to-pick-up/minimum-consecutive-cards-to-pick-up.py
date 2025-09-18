@@ -1,14 +1,15 @@
+from collections import defaultdict
+
 class Solution:
     def minimumCardPickup(self, cards: List[int]) -> int:
-        # mark the most recent index of the specific number that you are on
-        # record the minimum and mark that down
-
-        ret = float('inf')
-        m = defaultdict(int)
-
+        dic = defaultdict(list)
         for i in range(len(cards)):
-            if cards[i] in m:
-                ret = min(ret, i - m[cards[i]] + 1)
-            m[cards[i]] = i
+            dic[cards[i]].append(i)
+            
+        ans = float("inf")
+        for key in dic:
+            arr = dic[key]
+            for i in range(len(arr) - 1):
+                ans = min(ans, arr[i + 1] - arr[i] + 1)
         
-        return -1 if ret == float('inf') else ret
+        return ans if ans < float("inf") else -1
