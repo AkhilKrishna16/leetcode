@@ -10,7 +10,6 @@ class Solution:
         for _ in range(1, left):
             prev = curr
             curr = curr.next
-        print(curr)
         con = prev
         tail = curr
         new_prev = None
