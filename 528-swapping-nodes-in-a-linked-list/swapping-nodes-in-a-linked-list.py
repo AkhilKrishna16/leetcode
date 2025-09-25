@@ -16,7 +16,6 @@ class Solution:
         while fast.next:
             fast = fast.next
             p2 = p2.next
-            print(p2.val)
         
         p1.val, p2.val = p2.val, p1.val
         return head
