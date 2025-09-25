@@ -12,7 +12,6 @@ class Solution:
         prev = None
         for _ in range(n):
             fast = fast.next
-        print(fast.val if fast else -1)
         while fast:
             prev = slow
             slow = slow.next
