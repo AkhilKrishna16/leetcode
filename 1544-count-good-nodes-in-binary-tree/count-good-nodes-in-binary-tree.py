@@ -11,7 +11,6 @@ class Solution:
                 return 0
             
             count = 1 if currMax <= root.val else 0
-            print(count)
             return count + dfs(root.left, max(currMax, root.val)) + dfs(root.right, max(currMax, root.val))
         count = dfs(root, float('-inf'))
         return count
