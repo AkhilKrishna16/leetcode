@@ -7,22 +7,18 @@
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
         ret = []
-        curr_path = []
-        
-        def dfs(node, s):
-            if not node:
-                return 
-            curr_path.append(node.val)
-            new_s = s + node.val
 
-            if not node.left and not node.right and new_s == targetSum:
-                ret.append(curr_path.copy())
+        def dfs(root, curr, curr_sum):
+            if not root:
+                return
+            curr_sum = curr_sum + root.val
+            curr.append(root.val)
+
+            if not root.left and not root.right and targetSum == curr_sum:
+                ret.append(curr.copy())
             else:
-                dfs(node.right, new_s)
-                dfs(node.left, new_s)
-
-            curr_path.pop()
-        
-            
-        dfs(root, 0)
+                dfs(root.left, curr, curr_sum)
+                dfs(root.right, curr, curr_sum)
+            curr.pop()
+        dfs(root, [], 0)
         return ret
