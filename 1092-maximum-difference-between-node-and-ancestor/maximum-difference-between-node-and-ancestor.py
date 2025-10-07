@@ -12,7 +12,7 @@ class Solution:
         # max: 8, min: 1 | max: 8, min:
         def dfs(root, curr_max, curr_min):
             if not root:
-                return abs(curr_max - curr_min)
+                return curr_max - curr_min
             
             curr_max = max(root.val, curr_max)
             curr_min = min(root.val, curr_min)
