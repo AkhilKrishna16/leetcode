@@ -10,18 +10,17 @@ class Solution:
             for dx, dy in directions:
                 i = row + dx
                 j = col + dy
-                if is_valid(i, j) and (i, j) not in seen:
-                    seen.add((i, j))
+                if is_valid(i, j):
+                    grid[i][j] = '0'
                     dfs(i, j)
         
         ret = 0
-        seen = set()
         directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         for i in range(len(grid)):
             for j in range(len(grid[0])):
-                if is_valid(i, j) and (i, j) not in seen:
+                if is_valid(i, j):
                     ret += 1
-                    seen.add((i, j))
+                    grid[i][j] = '0'
                     dfs(i, j)
         
         return ret
