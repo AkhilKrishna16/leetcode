@@ -9,7 +9,7 @@ class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
         def dfs(node, parent):
             if not node:
-                return
+                return 
             
             node.parent = parent
             dfs(node.left, node)
@@ -19,17 +19,16 @@ class Solution:
         q = deque([target])
         seen = {target}
         distance = 0
+
         while q and distance < k:
-            
-            # append everything from new_level such as left, right, parent
-            # iterate through the n nodes we have right
             n = len(q)
             for _ in range(n):
-                new_level = q.popleft()
-                for node in [new_level.left, new_level.right, new_level.parent]:
-                    if node and node not in seen:
-                        seen.add(node)
-                        q.append(node)
+                node = q.popleft()
+                for v in [node.parent, node.left, node.right]:
+                    if v and v not in seen:
+                        seen.add(v)
+                        q.append(v)
+            
             distance += 1
         
         return [node.val for node in q]
