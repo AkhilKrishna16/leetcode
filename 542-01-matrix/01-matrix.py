@@ -15,9 +15,9 @@ class Solution:
         # go through the queue and add to ret
 
         # form ret
-        ret = []
-        for _ in range(len(mat)):
-            ret.append([-1] * len(mat[0]))
+        # ret = []
+        # for _ in range(len(mat)):
+        #     ret.append([-1] * len(mat[0]))
         
         # go through the queue and mark
         directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
@@ -25,7 +25,7 @@ class Solution:
             n = len(q)
             for _ in range(n):
                 el = q.popleft()
-                ret[el[0]][el[1]] = el[2] # mark the current
+                mat[el[0]][el[1]] = el[2]
 
                 # append the new elements
                 for dx, dy in directions:
@@ -34,7 +34,7 @@ class Solution:
                     if is_valid(new_row, new_col):
                         seen.add((new_row, new_col))
                         q.append((new_row, new_col, el[2] + 1))
-        return ret
+        return mat
 
 
                 
