@@ -13,13 +13,13 @@ class Solution:
             for _ in range(n):
                 el = q.popleft()
                 if el[0] == len(grid) - 1 and el[1] == len(grid[0]) - 1:
-                    ret = min(ret, el[3])
+                    return el[3]
                 for dx, dy in directions:
                     new_row = dx + el[0]
                     new_col = dy + el[1]
                     if is_valid(new_row, new_col) and el[2] - grid[new_row][new_col] >= 0 and (new_row, new_col, el[2] - grid[new_row][new_col]) not in seen:
                         seen.add((new_row, new_col, el[2] - grid[new_row][new_col]))
                         q.append((new_row, new_col, el[2] - grid[new_row][new_col], el[3] + 1))
-        return -1 if ret == float('inf') else ret
+        return -1
 
 
