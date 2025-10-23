@@ -10,4 +10,5 @@ class Solution:
         # even though it truly finds the ones with bits in an odd position
 
         # we perform and operation with n and 010101010101... to find if there are  
-        # bits set in the odd position
+        # bits set in the odd position. because of the previous condition, we would
+        # only be checking numbers with one bit set
