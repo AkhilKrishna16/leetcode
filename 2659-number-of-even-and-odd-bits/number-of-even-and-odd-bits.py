@@ -3,7 +3,6 @@ class Solution:
         ret = [0, 0]
         for i in range(n.bit_length()):
             if n & 1 == 1:
-                print(i % 2)
                 if i % 2 == 0:
                     ret[0] += 1
                 else:
