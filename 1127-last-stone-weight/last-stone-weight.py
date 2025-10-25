@@ -4,7 +4,6 @@ class Solution:
         q = deque(stones)
 
         while len(q) > 1:
-            print(q)
             el1 = q.popleft()
             el2 = q.popleft()
 
