@@ -1,16 +1,12 @@
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
-        stones.sort(reverse=True)
-        q = deque(stones)
+        stones = [-stone for stone in stones]
+        heapq.heapify(stones)
 
-        while len(q) > 1:
-            el1 = q.popleft()
-            el2 = q.popleft()
-
-            # append the difference between the two
-            diff = abs(el1 - el2)
-            # you cant just append you have to sort the queue again
-            q.append(diff)
-            q = deque(sorted(q, reverse=True))
+        while len(stones) > 1:
+            # pop off the max two elements
+            first = -heapq.heappop(stones)
+            second = -heapq.heappop(stones)
+            heapq.heappush(stones, -(first - second))
         
-        return q[0]
+        return -stones[0]
