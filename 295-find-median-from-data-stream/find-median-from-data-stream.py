@@ -3,8 +3,6 @@ class MedianFinder:
     def __init__(self):
         self.max_heap = []
         self.min_heap = []
-        heapq.heapify(self.max_heap)
-        heapq.heapify(self.min_heap)
 
     def addNum(self, num: int) -> None:
         heapq.heappush(self.max_heap, -num)
