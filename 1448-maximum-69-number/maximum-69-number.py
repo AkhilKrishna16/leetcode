@@ -2,9 +2,19 @@ class Solution:
     def maximum69Number (self, num: int) -> int:
         # change the first 6 that you see going from left to right
 
-        s = str(num)
-        for i in range(len(s)):
-            if s[i] == '6':
-                return int(s[:i] + "9" + s[i + 1:])
+        # find the first 6 and that position then return num + 3 * 10 ^ (position of first 6)
+
+        pos = -1
+        i = 0
+        copy = num
+        while copy > 0:
+            digit = copy % 10
+            if digit == 6:
+                pos = i
+            copy //= 10
+            i += 1
         
-        return num
+        if pos == -1:
+            return num
+        else:
+            return num + (3 * 10 ** pos)
