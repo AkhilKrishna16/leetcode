@@ -1,20 +1,18 @@
 class Solution:
     def numRescueBoats(self, people: List[int], limit: int) -> int:
-        q = deque(sorted(people))
+        people.sort()
+        left = 0
+        right = len(people) - 1
         ret = 0
 
-        while q:
-            el = q.popleft()
-            while q and q[-1] + el > limit:
-                q.pop()
-                ret += 1 # pop off everything that surpasses the limit
+        while left <= right:
+            if people[left] + people[right] <= limit:
+                left += 1
             
-            # add the pair if there is a pair (0 and -1)
-            if q:
-                q.pop()
-
-            ret += 1 # add one regardless
+            right -= 1
+            ret += 1
         
         return ret
+                
             
             
