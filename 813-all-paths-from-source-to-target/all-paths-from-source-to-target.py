@@ -10,8 +10,6 @@ class Solution:
             if curr_node == n - 1:
                 ret.append(curr_path.copy())
                 return
-            elif not graph[curr_node]:
-                return
             for next_node in graph[curr_node]:
                 curr_path.append(next_node)
                 dfs(next_node)
