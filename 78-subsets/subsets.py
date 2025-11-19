@@ -2,17 +2,20 @@ class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         ret = []
         curr = []
-        i = 0
+
         def dfs(i):
-            if i >= len(nums):
-                ret.append(curr.copy())
+            if i > len(nums):
                 return
+            ret.append(curr.copy())
+
+            for j in range(i, len(nums)):
+                curr.append(nums[j])
+                dfs(j + 1)
+                curr.pop()
             
-            curr.append(nums[i])
-            dfs(i + 1)
-
-            curr.pop()
-            dfs(i + 1)
-
+        
         dfs(0)
         return ret
+
+                
+                
