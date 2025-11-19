@@ -13,7 +13,7 @@ class Solution:
             for next_node in graph[curr_node]:
                 curr_path.append(next_node)
                 dfs(next_node)
-                curr_path.remove(next_node)
+                curr_path.pop()
         
         dfs(0)
         return ret
