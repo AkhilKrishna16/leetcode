@@ -1,12 +1,17 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        if len(nums) == 1:
-            return nums[0]
-        dp = [0] * (len(nums))
-        dp[0] = nums[0]
-        dp[1] = max(nums[0], nums[1])
+        memo = {}
 
-        for i in range(2, len(nums)):
-            dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])
+        def dp(i):
+            if i == 0:
+                return nums[0]
+            elif i == 1:
+                return max(nums[0], nums[1])
+            
+            if i in memo:
+                return memo[i]
+            
+            memo[i] = max(dp(i - 2) + nums[i], dp(i - 1))
+            return memo[i]
         
-        return dp[len(nums) - 1]
+        return dp(len(nums) - 1)
