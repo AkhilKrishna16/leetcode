@@ -7,11 +7,11 @@ class Solution:
 
         for num in nums:
             points[num] += num
-        
+        dp[0] = 0
         if len(dp) > 1:
             dp[1] = points[1]
-
-        for i in range(2, max(nums) + 1):
-            dp[i] = max(dp[i - 1], points[i] + dp[i - 2])
         
+        for num in range(2, max(nums) + 1):
+            dp[num] = max(dp[num - 1], points[num] + dp[num - 2])
+
         return max(dp)
