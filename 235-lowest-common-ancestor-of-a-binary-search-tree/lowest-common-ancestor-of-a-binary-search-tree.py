@@ -7,17 +7,22 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        # if the current node is equal to p or q, then return that node
-        # if both nodes are less than the current value -> traverse left side
-        # if both nodes are greater than the current value -> traverse right side
-        # if one is greater and one is less than -> return the current node
-        # if null node currently, you couldn't find a node thats equal to the curren 
+        # what are the cases?
+        # if p is our root or q is our root: then the answer is just root
+        # if p and q are less than the current: only dfs on the left subtree
+        # if p and q are greater than the current: only dfs on the right subtree
+        # if p < root and root < q or vice versa: return root
+
         if not root:
-            return None
+            return 
         
-        if root.val > p.val and root.val > q.val:
+        if root.val == p.val or root.val == q.val:
+            return root
+        elif p.val < root.val < q.val or q.val < root.val < p.val:
+            return root
+        elif p.val < root.val and q.val < root.val:
             return self.lowestCommonAncestor(root.left, p, q)
-        elif root.val < p.val and root.val < q.val:
+        elif p.val > root.val and q.val > root.val:
             return self.lowestCommonAncestor(root.right, p, q)
         
-        return root
+        return None
