@@ -18,16 +18,15 @@ class Solution:
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         while q:
             n = len(q)
-            for _ in range(n):
-                row, col, steps = q.popleft()
-                ret[row][col] = min(steps, ret[row][col])
+            row, col, steps = q.popleft()
+            ret[row][col] = min(steps, ret[row][col])
 
-                for dx, dy in directions:
-                    new_row = dx + row
-                    new_col = dy + col
+            for dx, dy in directions:
+                new_row = dx + row
+                new_col = dy + col
 
-                    if (new_row, new_col) not in seen and is_valid(new_row, new_col):
-                        q.append((new_row, new_col, steps + 1))
-                        seen.add((new_row, new_col))
+                if (new_row, new_col) not in seen and is_valid(new_row, new_col):
+                    q.append((new_row, new_col, steps + 1))
+                    seen.add((new_row, new_col))
         
         return ret
