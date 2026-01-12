@@ -1,20 +1,20 @@
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        # [1, 2, 3, 4]
-        # [1, 1, 2, 6]
-        # [24, 12, 4, 1]
-        # left auxillary array and right auxillary array
+        right = [1] * len(nums)
+        left = [1] * len(nums)
 
-        l_m = 1
-        r_m = 1
-        l = [0] * len(nums)
-        r = [0] * len(nums)
-
+        x = 1
         for i in range(len(nums)):
-            j = -i - 1
-            l[i] = l_m
-            r[j] = r_m
-            l_m *= nums[i]
-            r_m *= nums[j]
+            left[i] = x
+            x *= nums[i]
         
-        return [l_a*r_a for l_a, r_a in zip(l, r)]
+        x = 1
+        for i in range(len(nums) - 1, -1, -1):
+            right[i] = x
+            x *= nums[i]
+        
+        ret = [1] * len(nums)
+        for i in range(len(ret)):
+            ret[i] = left[i] * right[i]
+        
+        return ret
