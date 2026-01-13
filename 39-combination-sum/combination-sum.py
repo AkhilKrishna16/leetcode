@@ -3,17 +3,17 @@ class Solution:
         ret = []
         curr = []
 
-        def dfs(currSum, i):
-            if currSum == target:
+        def dfs(i, s):
+            if s == target:
                 ret.append(curr.copy())
                 return
-            elif currSum > target:
+            if i >= len(candidates) or s > target:
                 return
             
+            # iterate through choices
             for j in range(i, len(candidates)):
                 curr.append(candidates[j])
-                dfs(currSum + candidates[j], j)
+                dfs(j, s + candidates[j])
                 curr.pop()
-        
         dfs(0, 0)
         return ret
