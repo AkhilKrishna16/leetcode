@@ -8,9 +8,17 @@ class TimeMap:
 
     def get(self, key: str, timestamp: int) -> str:
         if key in self.structure:
-            for i in range(len(self.structure[key]) - 1, -1, -1):
-                if self.structure[key][i][0] <= timestamp:
-                    return self.structure[key][i][1]
+            values = self.structure[key]
+            low, high = 0, len(values) - 1
+            res = ""
+            while low <= high:
+                mid = (low + high) // 2
+                if values[mid][0] <= timestamp:
+                    res = values[mid][1]
+                    low = mid + 1
+                else:
+                    high = mid - 1
+            return res
         return ""
 
 
