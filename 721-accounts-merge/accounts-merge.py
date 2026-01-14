@@ -10,34 +10,44 @@ class Solution:
         # basically mark all the emails as visited or not
 
         graph = defaultdict(set)
-        name_to_email = defaultdict(str)
+        email_to_name = defaultdict(str)
+
+        # first, create the graph
+        # by creating an entry for every email
 
         for account in accounts:
             name = account[0]
-            head_email = account[1]
-            for i in range(1, len(account)):
-                # add these to the graph
-                graph[head_email].add(account[i])
-                graph[account[i]].add(head_email)
-                name_to_email[account[i]] = name
-        visited = set()
-        # traverse the graph
-        def dfs(email, list_of_names):
-            # should return a list of all the names on this path
-            visited.add(email)
-            list_of_names.append(email)
-            for neighbor in graph[email]:
-                if neighbor not in visited:
-                    dfs(neighbor, list_of_names)
+            first_email = account[1]
 
-            return list_of_names
+            for i in range(1, len(account)):
+                graph[account[i]].add(first_email)
+                graph[first_email].add(account[i])
+                email_to_name[account[i]] = name
+            
         
-        # for name in graph
-        res = []
-        for head_email in graph:
-            if head_email not in visited:
-                res.append([name_to_email[head_email]] + sorted(dfs(head_email, [])))
-        return res
+        # dfs
+        visited = set()
+        def dfs(email, connected_components):
+            visited.add(email)
+            connected_components.append(email)
+            for neighbor_email in graph[email]:
+                if neighbor_email not in visited:
+                    dfs(neighbor_email, connected_components)
+            
+            return connected_components
+        
+        # for every head_email, dfs() to clear out the connected components
+        # and add to ret list
+        ret = []
+        for email in graph:
+            if email not in visited:
+                name_of_email = email_to_name[email]
+                list_of_connected_emails = dfs(email, [])
+                ret.append([name_of_email] + sorted(list_of_connected_emails))
+        
+        return ret
+
+
 
 
 
