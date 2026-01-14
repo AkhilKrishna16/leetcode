@@ -2,18 +2,17 @@ class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         # in this case, 
 
+        # knapsack dp
         if sum(nums) % 2 != 0:
             return False
         
-        cache = {0}
-
         target = sum(nums) // 2
+        # you find the amount possible up to length
+        dp = [False] * (target + 1)
+        dp[0] = True
 
         for num in nums:
-            next_cache = set()
-            for el in cache:
-                next_cache.add(el+num)
-                next_cache.add(el)
-            cache = next_cache
-        return True if target in next_cache else False
+            for currSum in range(target, num - 1, -1):
+                dp[currSum] |= dp[currSum - num]
+        return dp[target]
 
