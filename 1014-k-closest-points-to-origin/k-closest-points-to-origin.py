@@ -1,21 +1,21 @@
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        # maintain a max heap
-        # every time the len of heap gets greater than k
-        # pop off the top
+        # process a point, add -distance and every time size > k, pop off
+        # then return all negative values and the indexes respective the distances
 
-        heap = []
 
-        for x, y in points:
-            distance = (x ** 2 + y ** 2) ** (1/2)
-            heapq.heappush(heap, (-distance, [x, y]))
+        pq = []
 
-            if len(heap) > k:
-                heapq.heappop(heap)
+        for i in range(len(points)):
+            distance = sqrt(points[i][0]**2 + points[i][1]**2)
+            heapq.heappush(pq, (-distance, i))
+
+            if len(pq) > k:
+                heapq.heappop(pq)
         
         ret = []
-        while heap:
-            ret.append(heapq.heappop(heap)[1])
 
-        return ret
+        while pq:
+            ret.append(heapq.heappop(pq)[1])
         
+        return [points[index] for index in ret]
