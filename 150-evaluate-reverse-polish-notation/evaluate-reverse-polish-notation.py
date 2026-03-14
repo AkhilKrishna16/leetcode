@@ -30,7 +30,6 @@ class Solution:
                 if len(stack) >= 2:
                     token1 = stack.pop()
                     token2 = stack.pop()
-                print(token1, token2, token)
                 op_res = self.perform_operation(token1, token2, token)
                 stack.append(op_res)
             else:
