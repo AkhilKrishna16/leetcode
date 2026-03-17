@@ -21,7 +21,6 @@ class Solution:
             for dx, dy in directions:
                 new_row = row + dx
                 new_col = col + dy
-                print(new_row, new_col)
                 if new_row >= 0 and new_row < len(grid) and new_col >= 0 and new_col < len(grid[0]) and grid[new_row][new_col] == 1:
                     grid[new_row][new_col] = 2
                     q.append((new_row, new_col, minutes + 1))
