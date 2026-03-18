@@ -1,27 +1,23 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        # start a dfs from every cell that has a 1
-        # mark everything that is connected horizontally or vertically as a 0
-        # increase count by 1 on every iteration
-
-        def is_valid(i, j):
-            return i >= 0 and i < len(grid) and j >= 0 and j < len(grid[0]) and grid[i][j] == "1"
-        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-        def dfs(i, j):
-            nonlocal directions
-            grid[i][j] = "0"
+        # perform a dfs from every one you find. mark every one in this component as a 0, everything adjacent in a chain
+        # should be o(n^2)
+        directions = [(1,0),(0,1),(-1,0),(0,-1)]
+        def dfs(grid, row, col):
+            grid[row][col] = 0
             for dx, dy in directions:
-                new_row = dx + i
-                new_col = dy + j
+                new_row = dx + row
+                new_col = dy + col
 
-                if is_valid(new_row, new_col):
-                    dfs(new_row, new_col)
+                if new_row >= 0 and new_row < len(grid) and new_col >= 0 and new_col < len(grid[0]) and grid[new_row][new_col] == "1":
+                    dfs(grid, new_row, new_col)
 
-        count = 0
+        components = 0
+
         for i in range(len(grid)):
             for j in range(len(grid[0])):
-                if is_valid(i, j):
-                    count += 1
-                    dfs(i, j)
+                if grid[i][j] == "1":
+                    components += 1
+                    dfs(grid, i, j)
         
-        return count
+        return components
