@@ -6,20 +6,24 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        # at each node, you need to compare left with the min of the left subtree
-        # and with the max of the right subtree
+        # at every node, everything below needs to return true
+        # and essentially every parent needs to return true
 
-        # so for instance, you
+        # so at every stage, we must store the min, the max, the current node
+        # if the node is less than the min
+        # if we are going to the left, max should be the current node 
+        # if we are going to the right, min should be the current node
+        # the other thing (min/max) should just stay the same 
 
-        def dfs(root, max_value, min_value):
-            if not root:
+        # if something is not correct like within the range, return False
+
+        def dfs(le, ge, node):
+            if not node:
                 return True
-            ret = True
-            ret &= (min_value < root.val < max_value)
-            left = dfs(root.left, root.val, min_value)
-            right = dfs(root.right, max_value, root.val)
-            ret &= left and right
-                    
-            return ret
-        return dfs(root, float('inf'), float('-inf'))
+            
+            if le < node.val < ge:
+                return dfs(le, node.val, node.left) and dfs(node.val, ge, node.right)
+            else:
+                return False
         
+        return dfs(root.val, float('inf'), root.right) and dfs(float('-inf'), root.val, root.left)
