@@ -1,19 +1,21 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        # essentially, we can use dp for this with the index being the target
+        # we can use append onto the candidates from target - i, i being something from candidates
+        # and you can append onto this list
         ret = []
-        curr = []
-
-        def dfs(i, s):
-            if s == target:
+        def dp(s, curr, i):
+            if s == 0:
                 ret.append(curr.copy())
                 return
-            if i >= len(candidates) or s > target:
+            elif s < 0:
                 return
             
-            # iterate through choices
             for j in range(i, len(candidates)):
                 curr.append(candidates[j])
-                dfs(j, s + candidates[j])
+                dp(s - candidates[j], curr, j)
                 curr.pop()
-        dfs(0, 0)
+        dp(target, [], 0)
         return ret
+            
+
