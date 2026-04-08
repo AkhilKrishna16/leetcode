@@ -12,9 +12,9 @@ class Solution:
         ret = nums[0]
         run = nums[0]
 
-
         for i in range(1, len(nums)):
-            run = max(run + nums[i], nums[i])
+            run = max(0, run)
+            run += nums[i]
             ret = max(ret, run)
         
         return ret
