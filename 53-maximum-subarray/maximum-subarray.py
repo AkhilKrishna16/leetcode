@@ -8,10 +8,6 @@ class Solution:
         # dp[3] = 4
         # dp[4] = 3
         # dp[]
-        
-
-        dp = [0] * len(nums)
-        dp[0] = nums[0]
 
         ret = nums[0]
         run = nums[0]
