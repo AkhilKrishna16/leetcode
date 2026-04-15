@@ -6,11 +6,23 @@ class Solution:
         # return dp[len(nums) - 1]
         # dp[i] represents the longest subsequence that ends with nums[i]
 
-        dp = [1] * len(nums)
+        # dp = [1] * len(nums)
          
-        for i in range(1, len(nums)):
-            for j in range(i):
-                if nums[j] < nums[i]:
-                    dp[i] = max(dp[i], 1 + dp[j])
+        # for i in range(1, len(nums)):
+        #     for j in range(i):
+        #         if nums[j] < nums[i]:
+        #             dp[i] = max(dp[i], 1 + dp[j])
 
-        return max(dp)
+        # return max(dp)
+
+        # greedy + binary search
+
+        sub = []
+        for i in range(len(nums)):
+            if len(sub) == 0 or sub[-1] < nums[i]:
+                sub.append(nums[i])
+            else:
+                idx = bisect_left(sub, nums[i]) # find the first index where the element >= x
+                sub[idx] = nums[i]
+        
+        return len(sub)
