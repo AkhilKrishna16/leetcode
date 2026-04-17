@@ -1,5 +1,11 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
+        # dp[i] = # number of ways to climb to step i 
+        # dp[0] = 1
+        # dp[1] = 1
+        # dp[2] = dp[i - 1] + dp[i - 2] = 2
+        # dp[3] = 3
+
         dp = [0] * (n + 1)
         dp[0] = 1
         dp[1] = 1
