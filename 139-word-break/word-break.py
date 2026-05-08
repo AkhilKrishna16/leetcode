@@ -1,23 +1,19 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        # we can utilize backtracking or some kind of dfs
-        # basically, start from the top
-        # then add every word 
-        memo = {}
+        # have dp[i] = whether or not there are words in wordDict that can form from i onwards
+        # for instance, dp[4] ("code") = True (since there is "code" in the dictionary)
 
-        def dfs(i):
-            if i == len(s):
-                return True
+        # dp[i] = dp[i + len(word)] if word == s[i: i + len(word)] for word in wordDict
+        # return dp[0]
+        # base case: dp[len(s)] = True
+        # dp = [True] * (len(s) + 1)
 
-            if i in memo:
-                return memo[i]
-            
-            res = False
+        dp = [False] * (len(s) + 1)
+        dp[len(s)] = True
+
+        for i in range(len(s) - 1, -1, -1):
             for word in wordDict:
-                if i + len(word) <= len(s) and s[i: i + len(word)] == word:
-                    res |= dfs(i + len(word))
-            
-            memo[i] = res
-            return memo[i]
+                if i + len(word) <= len(s) and word == s[i: i + len(word)]:
+                    dp[i] |= dp[i + len(word)]
         
-        return dfs(0)
+        return dp[0]
