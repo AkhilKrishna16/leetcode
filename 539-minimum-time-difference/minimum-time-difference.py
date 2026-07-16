@@ -11,7 +11,7 @@ class Solution:
         for i in range(1, len(timePoints)):
             minDiff = min(abs(timePoints[i] - timePoints[i - 1]), minDiff)
         
-        minDiff = min(minDiff, 1440 - abs(timePoints[0] - timePoints[-1]))
+        minDiff = min(minDiff, 1440 - (timePoints[-1] - timePoints[0]))
     
         return minDiff
         
