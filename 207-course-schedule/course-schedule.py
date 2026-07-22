@@ -1,27 +1,42 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # track the indegrees of every node in numCourses
+        # basically, create a graph where prereqs[i][0] -> prereqs[i][1]
+        # if len(visited) == numCourses: return True
+        #  else: return False
+
+        # it is cycle detection
+        # if there is a cycle, you can't take some classes
+        # also if there is no connection to something, then you can't take 
+
         graph = defaultdict(list)
-        indeg = [0] * numCourses
+        indegree = {i: 0 for i in range(numCourses)}
 
-        for a, b in prerequisites:
-            graph[b].append(a)
-            indeg[a] += 1
+        for course, prereq in prerequisites:
+            indegree[course] += 1
+            graph[prereq].append(course)
         
+        # start from every course with value greater than 0 
         q = deque([])
-        count = 0
-
-        for i in range(numCourses):
-            if indeg[i] == 0:
-                q.append(i)
-                count += 1
+        
+        for k in indegree:
+            if indegree[k] == 0:
+                q.append(k)
         
         while q:
             course = q.popleft()
 
-            for result in graph[course]:
-                indeg[result] -= 1
-                if indeg[result] == 0:
-                    count += 1
-                    q.append(result)
-        return count == numCourses
+            for neighbor in graph[course]:
+                indegree[neighbor] -= 1
+
+                if indegree[neighbor] == 0:
+                    q.append(neighbor)
+        
+        for k in indegree:
+            if indegree[k] > 0:
+                return False
+        
+        return True
+                    
+            
+
+
