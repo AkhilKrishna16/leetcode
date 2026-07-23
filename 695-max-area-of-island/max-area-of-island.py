@@ -1,31 +1,31 @@
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        # dfs only on those with 1's 
-        # whenever you go to a cell, mark it as a 0 once you are done
-        # count each initial dfs call that you make and make it return one for 
-        # each cell that it present
-        # maximum amount returned
-        def is_valid(row, col):
-            return row >= 0 and col >= 0 and row < len(grid) and col < len(grid[0]) and grid[row][col] == 1
+
+        def bfs(r, c):
+            q = deque([(r, c)])
+            count = 0
+            while q:
+                row, col = q.popleft()
+                grid[row][col] = 0
+                count += 1
+
+                directions = [(1,0), (0,1), (-1,0), (0,-1)]
+
+                for dx, dy in directions:
+                    new_row = dx + row
+                    new_col = dy + col
+
+                    if 0 <= new_row < len(grid) and 0 <= new_col < len(grid[0]) and grid[new_row][new_col] == 1:
+                        q.append((new_row, new_col))
+                        grid[new_row][new_col] = 0
+            return count
         
-        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-        def dfs(row, col):
-            if not is_valid(row, col):
-                return 0
-            
-            grid[row][col] = 0
+        max_count = 0
 
-            # dfs call for each of the 4 directions
-            ans = 1
-            for x, y in directions:
-                ans += dfs(x + row, y + col)
-
-            return ans
-
-        ret = 0
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if is_valid(i, j):
-                    ret = max(ret, dfs(i, j))
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):
+                if grid[r][c] == 1:
+                    grid[r][c] = 0
+                    max_count = max(bfs(r, c), max_count)
         
-        return ret
+        return max_count
