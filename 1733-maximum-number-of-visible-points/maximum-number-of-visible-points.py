@@ -18,8 +18,8 @@ class Solution:
             a = math.degrees(math.atan2(dy, dx))
             
 
-            # if a < 0:
-            #     a += 360
+            if a < 0:
+                a += 360
             angles.append(a)
         
         angles.sort()
@@ -32,6 +32,6 @@ class Solution:
             while angles[right] - angles[left] > angle:
                 left += 1
             
-            max_view = max(max_view, min(right - left + 1, len(points)))
+            max_view = max(max_view, right - left + 1)
         
         return max_view + same_position
