@@ -18,8 +18,8 @@ class Solution:
             a = math.degrees(math.atan2(dy, dx))
             
 
-            if a < 0:
-                a += 360
+            # if a < 0:
+            #     a += 360
             angles.append(a)
         
         angles.sort()
