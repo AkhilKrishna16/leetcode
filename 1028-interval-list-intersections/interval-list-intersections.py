@@ -15,10 +15,11 @@ class Solution:
 
             if start <= end:
                 ret.append([start, end])
-
+            
             if firstList[i][1] <= secondList[j][1]:
                 i += 1
             else:
                 j += 1
+        
         return ret
             
